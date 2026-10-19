@@ -1,96 +1,67 @@
 # Remix IDE Desktop
 
-Native desktop application wrapper for Remix IDE, the Ethereum smart contract development environment.
+[ayers.repair](https://ayers.repair) · [GitHub](https://github.com/ZachariahAyers)
 
-[View Portfolio](https://zachayers.io) | [Live Demo](https://remix.zachayers.io)
+[Remix IDE](https://remix.ethereum.org), the Ethereum smart-contract IDE, in its own desktop window, locked to Remix and nothing else.
 
-## About
+## Why
 
-Remix IDE Desktop brings the full Remix Ethereum IDE experience to your desktop as a native application. Built with Electron, it provides a dedicated window for smart contract development, eliminating the need for browser tabs and offering a more integrated development workflow. Perfect for Solidity developers who prefer native applications or need to work offline with locally hosted Remix instances.
+Remix in a browser tab shares that browser with everything else you have open. This app gives it a dedicated, sandboxed window: the page cannot reach Node or the file system, it cannot navigate away from Remix, links that leave Remix open in your normal browser, and it gets the clipboard and fullscreen, never the camera, microphone, location or USB.
 
-## Built With
+## Stack
 
-- Electron
-- Node.js
-- Remix IDE (embedded)
-- Electron Builder
-- Electron Squirrel (auto-updates)
+- [Electron](https://www.electronjs.org) 44, with the [security checklist](https://www.electronjs.org/docs/latest/tutorial/security) applied and the hardening fuses set
+- TypeScript, compiled with `tsc`, ES modules
+- [Electron Forge](https://www.electronforge.io) for Windows, macOS and Linux installers
+- `node:test`, ESLint with typescript-eslint, Prettier
+- GitHub Actions: lint, typecheck, test, then package on all three platforms
 
-## Features
+## Run
 
-- **Native Desktop Experience** - Run Remix IDE as a standalone application
-- **Cross-Platform Support** - Available for Windows, macOS, and Linux
-- **Dedicated Development Window** - No browser distractions or tab management
-- **Custom App Icon** - Professional branding with high-resolution icons
-- **Auto-Update Support** - Built-in update mechanism via Electron Squirrel
-- **Offline Capability** - Can be configured to work with local Remix instance
-- **DevTools Access** - Full Chrome DevTools for debugging smart contracts
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 14.x or higher
-- npm or yarn
-
-### Installation
+Requires Node.js 22.18 or newer.
 
 ```bash
-git clone https://github.com/N73311/remix.ide.git
+git clone https://github.com/ZachariahAyers/remix.ide.git
 cd remix.ide
-npm install
+npm ci
+npm start
 ```
 
-### Development
+## Build
 
 ```bash
-npm start         # Launch the application in development mode
-npm run build     # Build distributables for current platform
-npm run dist      # Build and package for distribution
+npm run make
 ```
 
-### Building for All Platforms
+Installers for your OS land in `out/make/`: a Squirrel `Setup.exe` on Windows, a `.dmg` and `.zip` on macOS, a `.deb` and `.zip` on Linux. Every CI run builds all three and attaches them to the run. Builds are unsigned.
 
-```bash
-npm run build-win     # Build for Windows
-npm run build-mac     # Build for macOS
-npm run build-linux   # Build for Linux
+| Command           | What it does                                        |
+| ----------------- | --------------------------------------------------- |
+| `npm run check`   | Format check, lint, typecheck and tests             |
+| `npm test`        | Unit tests for the navigation and permission policy |
+| `npm run build`   | Compile `src/` to `dist/`                           |
+| `npm run package` | Package the app without making installers           |
+
+## Structure
+
+```
+src/main.ts           main process: window, session handlers, single instance
+src/policy.ts         every allow/deny decision, as pure functions
+test/policy.test.ts   tests for policy.ts
+forge.config.ts       packaging, makers, Electron fuses
+assets/               app icons (.icns, .ico, .png)
+docs/ARCHITECTURE.md  the security model in detail
 ```
 
-## Project Structure
+## Notes
 
-```
-remix.ide/
-├── src/
-│   ├── main.js         # Main process entry point
-│   ├── preload.js      # Preload script for security
-│   └── renderer.js     # Renderer process scripts
-├── assets/             # Application icons and resources
-├── build/              # Build configuration
-└── dist/               # Built distributables
-```
+- Browser extensions such as MetaMask do not run in Electron. Deploy with the Remix VM, a local node, or WalletConnect.
+- Remix loads from the network on every start, so you always get the current release and need a connection.
 
-## Smart Contract Development
+## Credits and license
 
-Once launched, you have access to:
-- Solidity compiler with multiple versions
-- Contract deployment and testing
-- Debugger and static analysis tools
-- Plugin ecosystem
-- File explorer for project management
-- Integration with MetaMask and hardware wallets
+Remix IDE is built by the [Remix Project](https://github.com/remix-project-org/remix-project) under the Apache License 2.0. This is an independent desktop shell and is not affiliated with or endorsed by the Remix Project or the Ethereum Foundation. It bundles no Remix code.
 
-## Security
+This shell is licensed under the [Apache License 2.0](LICENSE). Copyright Ayers Electronics Inc.
 
-- Electron security best practices implemented
-- Context isolation enabled
-- Remote content loaded only from trusted Remix domains
-- No node integration in renderer process
-
-## License
-
-Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for details.
-
-## Author
-
-Zachariah Ayers - [zachayers.io](https://zachayers.io)
+Built by Zachariah Ayers.
