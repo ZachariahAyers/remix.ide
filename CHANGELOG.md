@@ -2,7 +2,7 @@
 
 ## 2.0.0
 
-Rebuilt from the ground up. Same purpose: Remix IDE in its own desktop window.
+Remix IDE in its own desktop window.
 
 - Electron 11 to Electron 44, Electron Forge 6 beta to Forge 8.
 - JavaScript to TypeScript, ES modules, strict compiler settings.
@@ -18,7 +18,3 @@ Rebuilt from the ground up. Same purpose: Remix IDE in its own desktop window.
 - Unit tests, ESLint, Prettier, a CI workflow that packages on all three platforms, and monthly Dependabot updates.
 - Removed the IDE project files, the second lockfile and the stray `yarn` runtime dependency.
 - README rewritten; CLAUDE.md and docs/ARCHITECTURE.md added.
-
-## 1.0.0
-
-The original wrapper: an Electron 11 window opening Remix, packaged with Electron Forge 6 beta.
