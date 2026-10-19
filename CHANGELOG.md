@@ -14,7 +14,7 @@ Rebuilt from the ground up. Same purpose: Remix IDE in its own desktop window.
 - Electron fuses set: no run-as-Node, no `NODE_OPTIONS`, no inspector flags, asar integrity, encrypted cookies.
 - Fixed a crash on start on Windows and Linux: the old build called the macOS-only dock API unguarded.
 - One instance at a time; a second launch focuses the open window.
-- Installers for Windows (Squirrel), macOS (DMG, ZIP) and Linux (DEB, ZIP), with a Windows icon added.
+- The build produces installers for Windows (Squirrel), macOS (DMG, ZIP) and Linux (DEB, ZIP), with a Windows icon added.
 - Unit tests, ESLint, Prettier, a CI workflow that packages on all three platforms, and monthly Dependabot updates.
 - Removed the IDE project files, the second lockfile and the stray `yarn` runtime dependency.
 - README rewritten; CLAUDE.md and docs/ARCHITECTURE.md added.

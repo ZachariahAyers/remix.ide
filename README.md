@@ -9,7 +9,7 @@ A desktop app that opens the Remix IDE for Ethereum smart contracts in its own w
 - Remix IDE in a dedicated window, separate from your browser
 - Navigation is limited to Remix; links that leave it open in your default browser
 - Clipboard and fullscreen are allowed; camera, microphone, location and USB are denied
-- Installers for Windows, macOS and Linux
+- The build produces installers for Windows, macOS and Linux (not yet published as releases)
 
 ## Tech stack
 
