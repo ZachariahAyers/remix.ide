@@ -7,6 +7,14 @@ updates:
     groups:
       npm:
         patterns: ["*"]
+    ignore:
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+    commit-message:
+      prefix: build
+      include: scope
   - package-ecosystem: github-actions
     directory: /
     schedule:
@@ -14,3 +22,6 @@ updates:
     groups:
       actions:
         patterns: ["*"]
+    commit-message:
+      prefix: build
+      include: scope
